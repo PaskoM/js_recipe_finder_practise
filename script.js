@@ -3,14 +3,14 @@ const submit = document.getElementById('submit');
 const random = document.getElementById('random');
 const mealsEl = document.getElementById('meals');
 const resultHeading = document.getElementById('result-heading');
-const singleMeal = document.getElementById('single-meal');
+const single_mealEl = document.getElementById('single-meal');
 
 //Search meal and fetch from API
 function searchMeal(e) {
     e.preventDefault();
 
     //Clear single meal
-    singleMeal.innerHTML = '';
+    single_mealEl.innerHTML = '';
 
     //Get search term
     const term = search.value;
@@ -65,6 +65,23 @@ function addMealToDOM(meal) {
             break;
         }
     }
+    single_mealEl.innerHTML = `
+    <div class="single-meal">
+      <h1>${meal.strMeal}</h1>
+      <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+      <div class="single-meal-info">
+        ${meal.strCategory ? `<p>${meal.strCategory}</p>` : ''}
+        ${meal.strArea ? `<p>${meal.strArea}</p>` : ''}
+      </div>
+      <div class="main">
+        <p>${meal.strInstructions}</p>
+        <h2>Ingredients</h2>
+        <ul>
+          ${ingredients.map(ing => `<li>${ing}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `;
 }
 
 //Event listeners
